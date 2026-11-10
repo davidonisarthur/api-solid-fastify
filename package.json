@@ -6,7 +6,12 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src/server.ts src/database/data-source.ts --out-dir build --clean",
+    "typeorm": "tsx ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/database/data-source.ts",
+    "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/database/data-source.ts",
+    "migration:show": "npm run typeorm -- migration:show -d src/database/data-source.ts"
   },
   "repository": {
     "type": "git",
@@ -28,6 +33,9 @@
   "dependencies": {
     "dotenv": "18.0.10",
     "fastify": "5.12.8",
+    "pg": "8.23.1",
+    "reflect-metadata": "0.2.2",
+    "typeorm": "1.1.2",
     "zod": "4.6.7"
   }
 }
